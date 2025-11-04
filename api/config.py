@@ -15,7 +15,7 @@ class DevConfig(Config):
 
 
 def get_config():
-    match os.getenv('ENV'):
+    match os.getenv('ENV', 'DEVELOPMENT'):
         case 'PRODUCTION':
             return ProdConfig()
         case _:
