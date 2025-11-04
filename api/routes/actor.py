@@ -16,7 +16,7 @@ def read_all_actors():
     
     return actors_schema.jsonify(actors), 200
 
-@actors_router.get('/<actor_id>')
+@actors_router.get('/<int:actor_id>')
 def read_actor(actor_id):
     actor = Actor.query.get(actor_id)
 
@@ -41,7 +41,7 @@ def create_actor():
     return actor_schema.dump(new_actor), 201
 
 
-@actors_router.patch('/<actor_id>')
+@actors_router.patch('/<int:actor_id>')
 def update_actor(actor_id):
     actor = Actor.query.get(actor_id)
 
@@ -65,7 +65,7 @@ def update_actor(actor_id):
     return actor_schema.dump(actor), 200
 
 
-@actors_router.delete('/<actor_id>')
+@actors_router.delete('/<int:actor_id>')
 def delete_actor(actor_id):
     actor = Actor.query.get(actor_id)
     db.session.delete(actor)
@@ -75,7 +75,7 @@ def delete_actor(actor_id):
     # NO CONTENT!!
 
 
-@actors_router.get('/<actor_id>/films')
+@actors_router.get('/<int:actor_id>/films')
 def list_actor_films(actor_id):
     actor = Actor.query.get(actor_id)
     return jsonify([{
