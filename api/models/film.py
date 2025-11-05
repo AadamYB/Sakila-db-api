@@ -1,5 +1,5 @@
 from api.models import db
-from api.models.associations import film_actor
+from api.models.associations import film_actor, film_category
 from api.models.language import Language
 from sqlalchemy.orm import relationship
 from sqlalchemy import ForeignKey
@@ -24,5 +24,11 @@ class Film(db.Model):
     actors = db.relationship(
         "Actor",
         secondary=film_actor,
+        back_populates="films"
+    )
+
+    categories = db.relationship(
+        "Category",
+        secondary=film_category,
         back_populates="films"
     )
