@@ -6,4 +6,5 @@ __pycache__/
 .venv/
 .env
 
+# Ignore private key and concatenated server certificate files
 *.pem
