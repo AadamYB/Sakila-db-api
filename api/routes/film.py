@@ -85,7 +85,19 @@ def list_film_actors(film_id):
 def list_films_per_page():
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per-page', 10, type=int)
-    film_pagination = Film.query.paginate(page=page, per_page=per_page)
+    title_filter = request.args.get('title', None, type=str)
+    rating_filter = request.args.get('rating', None, type=str)
+    release_year_filter = request.args.get('release_year', None, type=int)
+
+    query = Film.query
+    if title_filter:
+        query = query.filter(Film.title.ilike(f'%{title_filter}%'))
+    if rating_filter:
+        query = query.filter(Film.rating == rating_filter)
+    if release_year_filter:
+        query = query.filter(Film.release_year == release_year_filter)
+
+    film_pagination = query.paginate(page=page, per_page=per_page)
     films = film_pagination.items
 
     
