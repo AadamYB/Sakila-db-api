@@ -1,6 +1,7 @@
 from api.models import db
 from api.models.associations import film_actor, film_category
 from api.models.language import Language
+from api.models.category import Category                # Ensure Category is imported for the relationship to be recognized?
 from sqlalchemy.orm import relationship
 from sqlalchemy import ForeignKey
 

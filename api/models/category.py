@@ -1,6 +1,5 @@
 from api.models import db
 from api.models.associations import film_category
-from api.models.film import Film                # Ensure Film is imported for the relationship to be recognized?
 
 class Category(db.Model):
     __tablename__ = 'category'
