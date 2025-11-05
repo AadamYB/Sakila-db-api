@@ -5,14 +5,14 @@ class CategorySchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Category
 
-    link = ma.Hyperlinks(
-        {
-            "href": ma.URLFor(
-                'api.categories.read_category', 
-                values=dict(category_id='<category_id>', _scheme="http", _external=True)
-            )
-        }
-    )  
+    # link = ma.Hyperlinks(
+    #     {
+    #         "href": ma.URLFor(
+    #             'api.categories.read_category', 
+    #             values=dict(category_id='<category_id>', _scheme="http", _external=True)
+    #         )
+    #     }
+    # )  
 
 
 category_schema = CategorySchema()
