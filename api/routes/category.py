@@ -8,7 +8,7 @@ from api.schemas.category import category_schema, categories_schema
 categories_router = Blueprint('categories', __name__, url_prefix='/categories')
 
 @categories_router.get('/')
-def read_all_actors():
+def read_all_categories():
     category = Category.query.all()
 
     if not category:
@@ -18,7 +18,7 @@ def read_all_actors():
 
 
 @categories_router.get('/<int:category_id>')
-def read_actor(category_id):
+def read_categories(category_id):
     category = Category.query.get(category_id)
 
     if not category:
