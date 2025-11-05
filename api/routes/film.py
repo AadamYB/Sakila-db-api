@@ -88,6 +88,7 @@ def list_films_per_page():
     title_filter = request.args.get('title', None, type=str)
     rating_filter = request.args.get('rating', None, type=str)
     release_year_filter = request.args.get('release_year', None, type=int)
+    language_id_filter = request.args.get('language_id', None, type=int)
 
     query = Film.query
     if title_filter:
@@ -96,6 +97,8 @@ def list_films_per_page():
         query = query.filter(Film.rating == rating_filter)
     if release_year_filter:
         query = query.filter(Film.release_year == release_year_filter)
+    if language_id_filter:
+        query = query.filter(Film.language_id == language_id_filter)
 
     film_pagination = query.paginate(page=page, per_page=per_page)
     films = film_pagination.items
