@@ -71,6 +71,12 @@ def delete_film(film_id):
 @films_router.get('/<int:film_id>/actors')
 def list_film_actors(film_id):
     film = Film.query.get(film_id)
+    if not film:
+        return 'Film Not Found', 404
+    
+    if not film.actors:
+        return 'No Actors Found for this Film', 404
+    
     return jsonify([{
         'actor_id': a.actor_id,
         'first_name': a.first_name,
