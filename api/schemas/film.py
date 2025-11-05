@@ -3,6 +3,7 @@ from marshmallow import fields, validate
 from api.models.film import Film
 from api.schemas import ma
 from api.schemas.language import LanguageSchema
+from api.schemas.category import CategorySchema
 
 
 class FilmSchema(ma.SQLAlchemyAutoSchema):
@@ -35,6 +36,7 @@ class FilmSchema(ma.SQLAlchemyAutoSchema):
                 values=dict(film_id="<film_id>", _scheme="http", _external=True)),
         }
     )
+    categories = fields.Nested(CategorySchema, many=True, dump_only=True)
 
 film_schema = FilmSchema()
 films_schema = FilmSchema(many=True)
