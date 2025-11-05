@@ -12,7 +12,7 @@ def read_all_films():
     films = Film.query.all()
     return films_schema.jsonify(films), 200
 
-@films_router.get('/<film_id>')
+@films_router.get('/<int:film_id>')
 def read_film(film_id):
     film = Film.query.get(film_id)
     return film_schema.dump(film), 200
@@ -32,7 +32,7 @@ def create_film():
 
     return film_schema.dump(new_film), 201
 
-@films_router.patch('/<film_id>')
+@films_router.patch('/<int:film_id>')
 def update_film(film_id):
     film = Film.query.get(film_id)
 
@@ -56,7 +56,7 @@ def update_film(film_id):
     return film_schema.dump(film), 200
 
 
-@films_router.delete('/<film_id>')
+@films_router.delete('/<int:film_id>')
 def delete_film(film_id):
     film = Film.query.get(film_id)
 
@@ -68,7 +68,7 @@ def delete_film(film_id):
 
     return '', 204
 
-@films_router.get('/<film_id>/actors')
+@films_router.get('/<int:film_id>/actors')
 def list_film_actors(film_id):
     film = Film.query.get(film_id)
     return jsonify([{
