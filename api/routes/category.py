@@ -18,7 +18,7 @@ def read_all_categories():
 
 
 @categories_router.get('/<int:category_id>')
-def read_categories(category_id):
+def read_category(category_id):
     category = Category.query.get(category_id)
 
     if not category:
