@@ -23,8 +23,7 @@ class FilmSchema(ma.SQLAlchemyAutoSchema):
     # Based on tests, rental duration and length seem to accept any positive integer as long as its not negative
     # rental_rate and replacement_cost seem to accept negatives???
 
-    categories = fields.Nested(CategorySchema, many=True, dump_only=True)
-    category = fields.Nested(CategorySchema, dump_only=True)    
+    category = fields.Nested(CategorySchema, many=True, dump_only=True)
     language = fields.Nested(LanguageSchema, dump_only=True)
     language_id = fields.Integer(required=True, load_only=True)
 
