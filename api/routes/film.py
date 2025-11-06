@@ -131,12 +131,27 @@ def list_films_per_page():
         }
     }), 200
 
-@films_router.get('/recommendations')
-def recommended_films():
+@films_router.get('/ranked')
+def top_most_x_films():
+    """Endpoint to get top X films based on replacement cost, rental rate and duration(rental and movie length)."""
+
     x = request.args.get('top', None, type=int)
+    metric = request.args.get('metric', None, type=str)
+
+    metric_dict = {
+        'rental_rate': Film.rental_rate,
+        'replacement_cost': Film.replacement_cost,
+        'rental_duration': Film.rental_duration,
+        'length': Film.length
+    }
+
     if x is None or x <= 0:
         x = 5
+
+    if metric not in metric_dict:
+        return jsonify({'error':f"Invalid sort_by field. Choose from {list(metric_dict.keys())}"}), 400
     
-    top_x_films = Film.query.order_by(Film.rating.desc()).limit(x).all()
+    query = Film.query.order_by(metric_dict[metric].desc()).limit(x)
+    top_x_films = query.all()
 
     return films_schema.dump(top_x_films), 200
