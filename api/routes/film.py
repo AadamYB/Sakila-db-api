@@ -133,10 +133,10 @@ def list_films_per_page():
 
 @films_router.get('/ranked')
 def top_most_x_films():
-    """Endpoint to get top X films based on replacement cost, rental rate and duration(rental and movie length)."""
+    """Endpoint to get top X films based on replacement cost or rental rate or duration(rental and movie length)."""
 
     x = request.args.get('top', None, type=int)
-    metric = request.args.get('metric', None, type=str)
+    metric = request.args.get('sort_by', 'length', type=str)
 
     metric_dict = {
         'rental_rate': Film.rental_rate,
