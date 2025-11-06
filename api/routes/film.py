@@ -5,6 +5,8 @@ from api.models import db
 from api.models.film import Film
 from api.schemas.film import film_schema, films_schema
 
+from api.models.category import Category
+
 films_router = Blueprint('films', __name__, url_prefix='/films')
 
 @films_router.get('/')
@@ -95,6 +97,7 @@ def list_films_per_page():
     rating_filter = request.args.get('rating', None, type=str)
     release_year_filter = request.args.get('release_year', None, type=int)
     language_id_filter = request.args.get('language_id', None, type=int)
+    category_filter = request.args.get('category', None, type=str)
 
     query = Film.query
     if title_filter:
@@ -105,6 +108,9 @@ def list_films_per_page():
         query = query.filter(Film.release_year == release_year_filter)
     if language_id_filter:
         query = query.filter(Film.language_id == language_id_filter)
+
+    if category_filter:
+        query = query.join(Film.categories).filter_by(Category.name.ilike(f'%{category_filter}%'))
 
     film_pagination = query.paginate(page=page, per_page=per_page)
     films = film_pagination.items
@@ -125,3 +131,12 @@ def list_films_per_page():
         }
     }), 200
 
+@films_router.get('/recommendations')
+def recommended_films():
+    x = request.args.get('top', None, type=int)
+    if x is None or x <= 0:
+        x = 5
+    
+    top_x_films = Film.query.order_by(Film.rating.desc()).limit(x).all()
+    
+    return films_schema.dump(top_x_films), 200
