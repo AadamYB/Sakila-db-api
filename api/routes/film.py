@@ -110,7 +110,7 @@ def list_films_per_page():
         query = query.filter(Film.language_id == language_id_filter)
 
     if category_filter:
-        query = query.join(Film.categories).filter_by(Category.name.ilike(f'%{category_filter}%'))
+        query = query.join(Film.categories).filter(Category.name.ilike(f'%{category_filter}%'))
 
     film_pagination = query.paginate(page=page, per_page=per_page)
     films = film_pagination.items
@@ -138,5 +138,5 @@ def recommended_films():
         x = 5
     
     top_x_films = Film.query.order_by(Film.rating.desc()).limit(x).all()
-    
+
     return films_schema.dump(top_x_films), 200
