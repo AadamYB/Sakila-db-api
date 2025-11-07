@@ -1,5 +1,5 @@
 #!/bin/bash
-PIDFILE="./gunicorn.pid"
+PIDFILE="/home/Ayiadomboakye/sakila-db-api/gunicorn.pid"
 
 if [ -f "$PIDFILE" ]; then
     PID=$(cat "$PIDFILE")
