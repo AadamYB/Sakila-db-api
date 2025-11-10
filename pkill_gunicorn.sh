@@ -12,7 +12,7 @@ if [ -f "$PIDFILE" ]; then
             rm -f "$PIDFILE"
             echo "Gunicorn process terminated."
         else
-            echo "No running process found for PID $PID. Removing stale PID file."
+            echo "No running process found for PID $PID. Removing empty PID file."
             rm -f "$PIDFILE"
         fi
     else
