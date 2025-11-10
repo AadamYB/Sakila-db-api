@@ -129,7 +129,7 @@ def list_films_per_page():
                 'prev_url': url_for('api.films.list_films_per_page', page=film_pagination.prev_num, per_page=per_page, _external=True) if film_pagination.has_prev else None,
             }
         }
-    }), 200
+    }), 201
 
 @films_router.get('/ranked')
 def top_most_x_films():
