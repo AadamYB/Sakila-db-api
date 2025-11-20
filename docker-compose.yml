@@ -1,0 +1,22 @@
+services:
+  database:
+    image: sakila-mysql-docker:latest
+    container_name: sakila-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE} 
+    ports:
+      - "3306:3306"
+
+  api:
+    build: .
+    container_name: flask-sakila-api
+    restart: always
+    environment:
+      ENV: ${ENV}
+      DB_HOST: ${DB_HOST}
+    ports:
+      - "8080:8000"
+    depends_on:
+      - database

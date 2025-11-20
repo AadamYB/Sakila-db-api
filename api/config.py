@@ -11,7 +11,7 @@ class ProdConfig(Config):
 
 
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = os.getenv('DEV_DATABASE_URL') or "you_will_never_know"
+    SQLALCHEMY_DATABASE_URI = os.getenv('DEV_DATABASE_URL') or "you_will_never_know"    
 
 
 def get_config():
