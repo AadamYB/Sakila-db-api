@@ -12,6 +12,4 @@ COPY . .
 
 EXPOSE 8000
 
-RUN echo "Printing pip-installed Flask: " && python3 -m pip list | grep Flask && sleep 9
-
 CMD ["gunicorn", "-b", "0.0.0.0:8000", "app:app"]
