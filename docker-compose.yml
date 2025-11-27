@@ -15,7 +15,7 @@ services:
     restart: always
     environment:
       ENV: ${ENV}
-      DB_HOST: ${DB_HOST}
+      DEV_DATABASE_URL: ${DEV_DATABASE_URL}
     ports:
       - "8080:8000"
     depends_on:
